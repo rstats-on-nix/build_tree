@@ -1,7 +1,7 @@
 let
  pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/refs/heads/REPLACE_DATE.tar.gz") {};
  system_packages = builtins.attrValues {
-  inherit (pkgs) R glibcLocalesUtf8 nix;
+  inherit (pkgs) R glibcLocalesUtf nix;
 };
  r_packages = builtins.attrValues {
   inherit (pkgs.rPackages)
