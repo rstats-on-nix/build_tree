@@ -1,5 +1,5 @@
 let
- pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/refs/heads/2021-01-01.tar.gz") {};
+ pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/refs/heads/REPLACE_DATE.tar.gz") {};
  system_packages = builtins.attrValues {
   inherit (pkgs) R glibcLocalesUtf8 nix;
 };
@@ -20,6 +20,6 @@ let
     LC_PAPER = "en_US.UTF-8";
     LC_MEASUREMENT = "en_US.UTF-8";
 
-    buildInputs = [ system_packages r_packages tex wrapped_pkgs ];
+    buildInputs = [ system_packages r_packages wrapped_pkgs ];
 
   }
