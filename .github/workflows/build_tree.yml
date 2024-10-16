@@ -19,11 +19,15 @@ jobs:
       with:
         nix_path: nixpkgs=channel:nixos-unstable
 
+    - name: Access Payload Data
+      run: |
+          echo "Branch: ${{ github.event.client_payload.ref_name }}"
+
     - run:   |
          if [ "$RUNNER_OS" == "Linux" ]; then
-              sed -i 's/REPLACE_DATE/2021-01-01/g' default.nix
+              sed -i 's/REPLACE_DATE/${{ github.event.client_payload.ref_name }}/g' default.nix
          else
-              sed -i '' 's/REPLACE_DATE/2021-01-01/g' default.nix 
+              sed -i '' 's/REPLACE_DATE/${{ github.event.client_payload.ref_name }}/g' default.nix 
          fi
   
     - run:   |
