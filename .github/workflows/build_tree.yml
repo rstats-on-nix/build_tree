@@ -30,5 +30,5 @@ jobs:
               nix-build --keep-going --max-jobs 1 --cores 2 cachix.nix
          fi
         
-    - run: nix-store -qR --include-outputs $(nix-instantiate cachix.nix) | cachix push rstats-on-nix
+    #- run: nix-store -qR --include-outputs $(nix-instantiate cachix.nix) | cachix push rstats-on-nix
     - run: nix-shell cachix.nix --run "echo OK"
