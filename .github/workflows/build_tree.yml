@@ -1,4 +1,4 @@
-name: "Build tree on REPLACE_DATE"
+name: "Build tree on ${{ github.event.client_payload.ref_name }}"
 
 on:
   push:
