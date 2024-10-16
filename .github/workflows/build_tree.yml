@@ -19,8 +19,12 @@ jobs:
       with:
         nix_path: nixpkgs=channel:nixos-unstable
 
-    - run:
-         sed -i 's/REPLACE_DATE/2021-01-01/g' default.nix
+    - run:   |
+         if [ "$RUNNER_OS" == "Linux" ]; then
+              sed -i 's/REPLACE_DATE/2021-01-01/g' default.nix
+         else
+              sed -i '' 's/REPLACE_DATE/2021-01-01/g' default.nix 
+         fi
   
     - run:   |
          if [ "$RUNNER_OS" == "Linux" ]; then
