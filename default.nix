@@ -5,7 +5,31 @@ let
 };
  r_packages = builtins.attrValues {
   inherit (pkgs.rPackages)
-    tidyverse;
+    tidyverse
+    icosa
+    sf
+    terra
+    stars
+    vapour
+    V8
+    Rcpp
+    data_table
+    stringi
+    jsonlite
+    devtools
+    ragg
+    curl
+    openssl
+    rgl
+    shiny
+    dbplyr
+    RcppEigen
+    nloptr
+    igraph
+    rJava
+    RCurl
+    RSQLite
+    ;
 };
  wrapped_pkgs = pkgs.rWrapper.override {
   packages = [ r_packages ];
