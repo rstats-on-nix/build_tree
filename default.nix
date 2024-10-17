@@ -7,6 +7,7 @@ let
   inherit (pkgs.rPackages)
     tidyverse
     arrow
+    duckdb
     icosa
     sf
     terra
