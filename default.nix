@@ -6,6 +6,7 @@ let
  r_packages = builtins.attrValues {
   inherit (pkgs.rPackages)
     tidyverse
+    arrow
     icosa
     sf
     terra
