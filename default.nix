@@ -12,8 +12,6 @@ let
     sf
     terra
     stars
-    vapour
-    V8
     Rcpp
     data_table
     stringi
