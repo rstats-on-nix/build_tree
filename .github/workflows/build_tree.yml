@@ -44,8 +44,11 @@ jobs:
     #- run: nix-store -qR --include-outputs $(nix-instantiate cachix.nix) | cachix push rstats-on-nix
     - run: nix-shell default.nix --run "echo OK"
 
+    - name: Zip artifact for deployment
+      run: zip nix_store.zip /nix/store/ -r
+
     - name: Upload /nix/store as an artifact
       uses: actions/upload-artifact@v3
       with:
           name: nix-store
-          path: /nix/store/
+          path: /nix_store.zip
