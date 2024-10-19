@@ -15,8 +15,7 @@ jobs:
       contents: "read"
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        #, macos-14]
+        os: [ubuntu-latest, macos-14]
     steps:
     - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
@@ -44,11 +43,11 @@ jobs:
     #- run: nix-store -qR --include-outputs $(nix-instantiate cachix.nix) | cachix push rstats-on-nix
     - run: nix-shell default.nix --run "echo OK"
 
-    - name: Zip artifact for deployment
-      run: zip nix_store.zip /nix/store/ -r
+    - name: Tar artifact for deployment
+      run: tar -cvf nix_store.tar /nix/store/
 
     - name: Upload /nix/store as an artifact
       uses: actions/upload-artifact@v3
       with:
           name: nix-store
-          path: /nix_store.zip
+          path: /nix_store.tar
