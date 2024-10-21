@@ -42,12 +42,3 @@ jobs:
         
     #- run: nix-store -qR --include-outputs $(nix-instantiate cachix.nix) | cachix push rstats-on-nix
     - run: nix-shell default.nix --run "echo OK"
-
-    - name: Tar artifact for deployment
-      run: tar -cvf nix_store.tar /nix/store/
-
-    - name: Upload /nix/store as an artifact
-      uses: actions/upload-artifact@v3
-      with:
-          name: nix-store
-          path: /nix_store.tar
