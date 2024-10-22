@@ -29,6 +29,7 @@ let
     rJava
     RCurl
     RSQLite
+    rstan
     ;
 };
  wrapped_pkgs = pkgs.rWrapper.override {
