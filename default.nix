@@ -8,6 +8,8 @@ let
     tidyverse
     arrow
     duckdb
+    collapse
+    kit
     icosa
     sf
     terra
