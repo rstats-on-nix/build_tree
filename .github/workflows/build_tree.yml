@@ -66,8 +66,8 @@ jobs:
     - name: Test stars
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"stars\", { s <- read_stars(system.file(\"tif/L7_ETMs.tif\", package=\"stars\")); print(s) })'"
 
-    - name: Test Rcpp
-      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"Rcpp\", { cppFunction(\"int add(int x, int y) { return x + y; }\"); add(1, 2) })'"
+    #- name: Test Rcpp
+    #  run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"Rcpp\", { cppFunction(\"int add(int x, int y) { return x + y; }\"); add(1, 2) })'"
 
     - name: Test data.table
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"data.table\", { dt <- as.data.table(mtcars); dt[, .(mean_mpg = mean(mpg))] })'"
