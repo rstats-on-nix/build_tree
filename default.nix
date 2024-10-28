@@ -22,7 +22,6 @@ let
     ragg
     curl
     openssl
-    rgl
     shiny
     dbplyr
     RcppEigen
