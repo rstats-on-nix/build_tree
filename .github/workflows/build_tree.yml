@@ -100,7 +100,7 @@ jobs:
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"RcppEigen\", { fastLm( log(Volume) ~ log(Girth), data=trees) })'"
 
     - name: Test nloptr
-      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"nloptr\", { res <- nloptr(x0 = c(1, 1), eval_f = function(x) sum(x^2), lb = c(-5, -5), ub = c(5, 5)); res$solution })'"
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"nloptr\", { res <- nloptr(x0 = 1, eval_f = function(x) x^3, eval_grad_f = function(x) 2*x^2, lb = -5, ub = 5, opts = list(\"algorithm\"=\"NLOPT_LD_LBFGS\", \"maxeval\"=10)); res$solution })'"
 
     - name: Test igraph
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"igraph\", { g <- make_ring(10); plot(g) })'"
