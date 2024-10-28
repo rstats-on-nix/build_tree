@@ -38,4 +38,81 @@ jobs:
          fi
         
     #- run: nix-store -qR --include-outputs $(nix-instantiate cachix.nix) | cachix push rstats-on-nix
-    - run: nix-shell default.nix --run "echo OK"
+    
+    - name: Test tidyverse
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"tidyverse\", glimpse(mtcars))'"
+
+    - name: Test arrow
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"arrow\", { write_feather(mtcars, \"mtcars.feather\"); read_feather(\"mtcars.feather\") })'"
+
+    - name: Test duckdb
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"duckdb\", { con <- dbConnect(duckdb()); dbWriteTable(con, \"mtcars\", mtcars); dbDisconnect(con) })'"
+
+    - name: Test collapse
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"collapse\", fmean(mtcars$mpg))'"
+
+    - name: Test kit
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"kit\", countNA(mtcars))'"
+
+    - name: Test icosa
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"icosa\", { grid <- trigrid(5); print(grid) })'"
+
+    - name: Test sf
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"sf\", { nc <- st_read(system.file(\"shape/nc.shp\", package=\"sf\")); st_bbox(nc) })'"
+
+    - name: Test terra
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"terra\", { r <- rast(system.file(\"ex/logo.tif\", package=\"terra\")); summary(r) })'"
+
+    - name: Test stars
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"stars\", { s <- read_stars(system.file(\"tif/L7_ETMs.tif\", package=\"stars\")); print(s) })'"
+
+    - name: Test Rcpp
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"Rcpp\", { cppFunction(\"int add(int x, int y) { return x + y; }\"); add(1, 2) })'"
+
+    - name: Test data.table
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"data.table\", { dt <- as.data.table(mtcars); dt[, .(mean_mpg = mean(mpg))] })'"
+
+    - name: Test stringi
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"stringi\", stri_length(\"test\"))'"
+
+    - name: Test jsonlite
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"jsonlite\", toJSON(mtcars))'"
+
+    - name: Test devtools
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"devtools\", has_devel())'"
+
+    - name: Test curl
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"curl\", { h <- curl::new_handle(); curl::handle_setopt(h, url = \"https://httpbin.org/get\"); curl::curl_fetch_memory(\"https://httpbin.org/get\", h) })'"
+
+    - name: Test openssl
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"openssl\", sha256(\"test\"))'"
+
+    - name: Test ragg
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"ragg\", { agg_png(\"test_plot.png\"); plot(1:10); dev.off() })'"
+
+    - name: Test shiny
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"shiny\", cat(\"Shiny package loaded. Run `runExample()` to see examples.\\n\"))'"
+
+    - name: Test dbplyr
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"dbplyr\", tbl_lazy(mtcars))'"
+
+    - name: Test RcppEigen
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"RcppEigen\", { fastLm( log(Volume) ~ log(Girth), data=trees) })'"
+
+    - name: Test nloptr
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"nloptr\", { res <- nloptr(x0 = c(1, 1), eval_f = function(x) sum(x^2), lb = c(-5, -5), ub = c(5, 5)); res$solution })'"
+
+    - name: Test igraph
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"igraph\", { g <- make_ring(10); plot(g) })'"
+
+    - name: Test rJava
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"rJava\", .jinit())'"
+
+    - name: Test RCurl
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"RCurl\", getURL(\"https://httpbin.org/get\"))'"
+
+    - name: Test RSQLite
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"RSQLite\", { con <- dbConnect(RSQLite::SQLite(), \":memory:\"); dbWriteTable(con, \"mtcars\", mtcars); dbDisconnect(con) })'"
+
+    - name: Test rstan
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"rstan\", cat(\"rstan package loaded.\\n\"))'"
