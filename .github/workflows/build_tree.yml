@@ -79,7 +79,7 @@ jobs:
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"jsonlite\", toJSON(mtcars))'"
 
     - name: Test devtools
-      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"devtools\", has_devel())'"
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"devtools\", dev_sitrep())'"
 
     - name: Test curl
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"curl\", { h <- curl::new_handle(); curl::handle_setopt(h, url = \"https://httpbin.org/get\"); curl::curl_fetch_memory(\"https://httpbin.org/get\", h) })'"
