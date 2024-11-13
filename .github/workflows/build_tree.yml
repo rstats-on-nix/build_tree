@@ -106,7 +106,7 @@ jobs:
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"igraph\", { g <- make_ring(10); plot(g) })'"
 
     - name: Test rJava
-      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"rJava\", .jinit())'"
+      run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"rJava\", J(\"java.lang.Double\"))'"
 
     - name: Test RCurl
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"RCurl\", getURL(\"https://httpbin.org/get\"))'"
