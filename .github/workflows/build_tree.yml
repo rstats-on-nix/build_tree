@@ -36,9 +36,7 @@ jobs:
          else
               nix-build --max-jobs 1 --cores 2 default.nix
          fi
-        
-    #- run: nix-store -qR --include-outputs $(nix-instantiate cachix.nix) | cachix push rstats-on-nix
-    
+            
     - name: Test tidyverse
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"tidyverse\", glimpse(mtcars))'"
 
@@ -116,3 +114,14 @@ jobs:
 
     - name: Test rstan
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"rstan\", cat(\"rstan package loaded.\\n\"))'"
+  
+    - uses: cachix/cachix-action@v15
+      with:
+        name: rstats-on-nix
+        # If you chose signing key for write access
+        # signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        # If you chose API tokens for write access OR if you have a private cache
+        authToken: '${{ secrets.CACHIX_AUTH }}'
+        
+    - run: nix-store -qR --include-outputs $(nix-instantiate default.nix) | cachix push rstats-on-nix
+    - run: nix-shell --run "echo OK"
