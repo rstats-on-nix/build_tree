@@ -28,6 +28,12 @@ jobs:
          else
               sed -i '' 's/REPLACE_DATE/${{ github.event.client_payload.ref_name }}/g' default.nix 
          fi
+
+    - uses: cachix/cachix-action@v15
+      with:
+        name: rstats-on-nix
+        authToken: '${{ secrets.CACHIX_AUTH }}'
+         
     - name: Build on date ${{ github.event.client_payload.ref_name }}
       run:   |
          if [ "$RUNNER_OS" == "Linux" ]; then
@@ -114,14 +120,6 @@ jobs:
 
     - name: Test rstan
       run: nix-shell default.nix --run "Rscript -e 'withr::with_package(\"rstan\", cat(\"rstan package loaded.\\n\"))'"
-  
-    - uses: cachix/cachix-action@v15
-      with:
-        name: rstats-on-nix
-        # If you chose signing key for write access
-        # signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        # If you chose API tokens for write access OR if you have a private cache
-        authToken: '${{ secrets.CACHIX_AUTH }}'
         
     - run: nix-store -qR --include-outputs $(nix-instantiate default.nix) | cachix push rstats-on-nix
     - run: nix-shell --run "echo OK"
