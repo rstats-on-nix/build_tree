@@ -25,7 +25,8 @@ jobs:
     - name: Determine Nix file to use
       id: determine-file
       run: |
-          if [ "${{ github.event.client_payload.ref_name }}" -le 2020 ]; then
+          year=$(echo "${{ github.event.client_payload.ref_name }}" | cut -c1-4)
+          if [ "$year" -le 2020 ]; then
               echo "nix_file=default_2020.nix" >> $GITHUB_ENV
           else
               echo "nix_file=default.nix" >> $GITHUB_ENV
