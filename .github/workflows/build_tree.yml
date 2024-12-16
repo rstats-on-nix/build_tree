@@ -12,7 +12,7 @@ jobs:
       contents: "read"
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-14]
+        os: ${{ github.event.client_payload.platforms }}
     steps:
     - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
@@ -22,23 +22,15 @@ jobs:
       run: |
           echo "Branch: ${{ github.event.client_payload.ref_name }}"
 
-    - name: Determine Nix file and macOS version
+    - name: Determine Nix file to use
       id: determine-file
       run: |
           year=$(echo "${{ github.event.client_payload.ref_name }}" | cut -c1-4)
           if [ "$year" -le 2020 ]; then
               echo "nix_file=default_2020.nix" >> $GITHUB_ENV
-              echo "macos_version=macos-13" >> $GITHUB_ENV
           else
               echo "nix_file=default.nix" >> $GITHUB_ENV
-              echo "macos_version=macos-14" >> $GITHUB_ENV
           fi
-
-    - name: Adjust matrix for macOS
-      if: ${{ env.nix_file == 'default_2020.nix' }}
-      run: |
-          echo "Updating macOS version to ${{ env.macos_version }}"
-          echo "::set-output name=matrix_os::${{ env.macos_version }}"
 
     - run:   |
          if [ "$RUNNER_OS" == "Linux" ]; then
