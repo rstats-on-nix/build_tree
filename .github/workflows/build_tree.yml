@@ -21,6 +21,7 @@ jobs:
     - name: Access Payload Data
       run: |
           echo "Branch: ${{ github.event.client_payload.ref_name }}"
+          echo "Branch: ${{ github.event.client_payload.platforms }}"
 
     - name: Determine Nix file to use
       id: determine-file
