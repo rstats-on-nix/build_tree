@@ -30,12 +30,14 @@ jobs:
               echo "nix_file=default_2020.nix" >> $GITHUB_ENV
           else
               echo "nix_file=default.nix" >> $GITHUB_ENV
+          fi
 
     - run:   |
          if [ "$RUNNER_OS" == "Linux" ]; then
               sed -i 's/REPLACE_DATE/${{ github.event.client_payload.ref_name }}/g' ${{ env.nix_file }}
          else
               sed -i '' 's/REPLACE_DATE/${{ github.event.client_payload.ref_name }}/g' ${{ env.nix_file }} 
+         fi
 
     - uses: cachix/cachix-action@v15
       with:
@@ -49,6 +51,7 @@ jobs:
               nix-build --max-jobs 1 --cores 2 --argstr system aarch64-linux ${{ env.nix_file }}
          else
               nix-build --max-jobs 1 --cores 2 ${{ env.nix_file }}
+         fi
             
     - name: Test tidyverse
       run: nix-shell ${{ env.nix_file }} --run "Rscript -e 'withr::with_package(\"tidyverse\", glimpse(mtcars))'"
