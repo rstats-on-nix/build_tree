@@ -7,7 +7,7 @@ let
   inherit (pkgs.rPackages)
     callr ps bit64 rstudioapi bit broom systemfonts clipr rematch2
     ggplot2 arrow collapse kit icosa sf terra stars devtools openssl
-    haven rematch knitr munsell RColorBrewer readxl colorspace generics tzdb
+    haven rematch knitr munsell RColorBrewer readxl colorspace generics
     later dplyr cli fs evaluate crayon mime ragg tinytex
     lubridate processx data_table yaml rappdirs httr readr hms highr
     memoise RcppEigen nloptr igraph rJava RCurl RSQLite rstan rlang lifecycle
