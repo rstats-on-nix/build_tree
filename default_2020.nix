@@ -6,10 +6,10 @@ let
  r_packages = builtins.attrValues {
   inherit (pkgs.rPackages)
     callr ps bit64 rstudioapi bit broom systemfonts clipr rematch2
-    ggplot2 arrow duckdb collapse kit icosa sf terra stars devtools openssl
+    ggplot2 arrow collapse kit icosa sf terra stars devtools openssl
     haven rematch knitr munsell RColorBrewer readxl colorspace generics tzdb
     later dplyr cli fs evaluate crayon mime ragg tinytex
-    lubridate processx data_table yaml rappdirs httr readr hms highr textshaping
+    lubridate processx data_table yaml rappdirs httr readr hms highr
     memoise RcppEigen nloptr igraph rJava RCurl RSQLite rstan rlang lifecycle
     shiny dbplyr base64enc prettyunits xml2 progress askpass sys
     tidyr curl cpp11 DBI rprojroot backports gargle blob selectr promises
