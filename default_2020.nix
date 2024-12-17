@@ -5,7 +5,18 @@ let
 };
  r_packages = builtins.attrValues {
   inherit (pkgs.rPackages)
-    dplyr
+    callr ps bit64 rstudioapi bit broom systemfonts clipr rematch2
+    ggplot2 arrow duckdb collapse kit icosa sf terra stars devtools openssl
+    haven rematch knitr munsell RColorBrewer readxl colorspace generics tzdb
+    later dplyr cli fs evaluate crayon mime ragg tinytex
+    lubridate processx data_table yaml rappdirs httr readr hms highr textshaping
+    memoise RcppEigen nloptr igraph rJava RCurl RSQLite rstan rlang lifecycle
+    shiny dbplyr base64enc prettyunits xml2 progress askpass sys
+    tidyr curl cpp11 DBI rprojroot backports gargle blob selectr promises
+    Rcpp xfun stringr tidyselect tidyverse htmltools purrr stringi
+    timechange cellranger modelr zoo forcats rvest htmlwidgets scales pkgconfig
+    vctrs glue tibble pillar jsonlite magrittr withr R6 fansi utf8 fastmap
+    viridisLite gtable sass labeling isoband rmarkdown digest jquerylib farver xlsx openxlsx
     ;
 };
  wrapped_pkgs = pkgs.rWrapper.override {
