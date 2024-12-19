@@ -10,7 +10,7 @@ let
     haven rematch knitr munsell RColorBrewer readxl colorspace generics
     later dplyr cli fs evaluate crayon mime ragg tinytex rJava xlsxjars openxlsx
     lubridate processx data_table yaml rappdirs httr readr hms highr
-    memoise RcppEigen nloptr igraph RCurl RSQLite rstan rlang lifecycle
+    memoise RcppEigen nloptr igraph RCurl RSQLite rstan rlang
     shiny dbplyr base64enc prettyunits xml2 progress askpass sys
     tidyr curl DBI rprojroot backports gargle blob selectr promises
     Rcpp xfun stringr tidyselect tidyverse htmltools purrr stringi
