@@ -6,7 +6,7 @@ let
  r_packages = builtins.attrValues {
   inherit (pkgs.rPackages)
     callr ps bit64 rstudioapi bit broom systemfonts clipr rematch2
-    ggplot2 arrow icosa sf stars devtools openssl
+    ggplot2 icosa sf stars devtools openssl
     haven rematch knitr munsell RColorBrewer readxl colorspace generics
     later dplyr cli fs evaluate crayon mime ragg tinytex rJava xlsxjars openxlsx
     lubridate processx data_table yaml rappdirs httr readr hms highr
