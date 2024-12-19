@@ -16,7 +16,7 @@ let
     Rcpp xfun stringr tidyselect tidyverse htmltools purrr stringi
     timechange cellranger modelr zoo forcats rvest htmlwidgets scales pkgconfig
     vctrs glue tibble pillar jsonlite magrittr withr R6 fansi utf8
-    viridisLite gtable sass labeling isoband rmarkdown digest farver
+    viridisLite gtable labeling isoband rmarkdown digest farver
     ;
 };
  wrapped_pkgs = pkgs.rWrapper.override {
