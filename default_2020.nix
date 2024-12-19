@@ -5,7 +5,7 @@ let
 };
  r_packages = builtins.attrValues {
   inherit (pkgs.rPackages)
-    callr collapse jquerylib ps bit64 rstudioapi bit broom systemfonts clipr rematch2
+    callr jquerylib ps bit64 rstudioapi bit broom systemfonts clipr rematch2
     ggplot2 arrow icosa sf terra stars devtools openssl
     haven rematch knitr munsell RColorBrewer readxl colorspace generics
     later dplyr cli fs evaluate crayon mime ragg tinytex rJava xlsxjars openxlsx
