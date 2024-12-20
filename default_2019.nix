@@ -12,7 +12,7 @@ let
     lubridate processx data_table yaml rappdirs httr readr hms highr
     memoise RcppEigen nloptr igraph RCurl RSQLite rstan rlang
     shiny dbplyr base64enc prettyunits xml2 progress askpass sys
-    tidyr curl DBI rprojroot backports gargle blob selectr promises
+    tidyr curl DBI rprojroot backports blob selectr promises
     Rcpp xfun stringr tidyselect tidyverse htmltools purrr stringi
     timechange cellranger modelr zoo forcats rvest htmlwidgets scales pkgconfig
     vctrs glue tibble pillar jsonlite magrittr withr R6 fansi utf8
