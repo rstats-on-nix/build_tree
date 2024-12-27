@@ -5,7 +5,7 @@ let
 };
  r_packages = builtins.attrValues {
   inherit (pkgs.rPackages)
-    callr ps bit64 rstudioapi bit broom systemfonts clipr rematch2
+    callr ps bit64 rstudioapi bit broom systemfonts clipr rematch2 Seurat rhdf5
     ggplot2 arrow duckdb collapse kit icosa sf terra stars devtools openssl
     haven rematch knitr munsell RColorBrewer readxl colorspace generics
     later dplyr cli fs evaluate crayon mime ragg cachem tinytex fontawesome
