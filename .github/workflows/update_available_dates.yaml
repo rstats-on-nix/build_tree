@@ -5,7 +5,7 @@ on:
     - cron: '0 23 * * 1'
   push:
     branches:
-      - build_tree
+      - main
 
 jobs:
   update-and-trigger-ubuntu:
