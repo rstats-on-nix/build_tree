@@ -20,12 +20,6 @@ jobs:
     - uses: DeterminateSystems/nix-installer-action@main
     - uses: DeterminateSystems/magic-nix-cache-action@main
 
-    - name: Create Run UUID Artifact
-      if: github.event.inputs.trigger_uuid != ''
-      run: |
-          echo $GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID | \
-              tee /tmp/${{ github.event.inputs.trigger_uuid }}
-
     - name: Access Payload Data
       run: |
           echo "Branch: ${{ github.event.client_payload.ref_name }}"
@@ -66,10 +60,3 @@ jobs:
          else
               nix-build --max-jobs 1 --cores 2 ${{ env.nix_file }}
          fi
-
-    - name: Upload UUID As An Artifact
-      uses: actions/upload-artifact@v2
-      if: ${{ always() && github.event.inputs.trigger_uuid != '' }}
-      with:
-        name: ${{ github.event.inputs.trigger_uuid }}
-        path: /tmp/${{ github.event.inputs.trigger_uuid }} 
