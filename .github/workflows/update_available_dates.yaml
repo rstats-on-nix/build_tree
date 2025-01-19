@@ -11,14 +11,9 @@ jobs:
   update-and-trigger-ubuntu:
     name: Trigger build for available dates on Ubuntu
     runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.MY_PAT }}
-      GITHUB_TOKEN: ${{ secrets.MY_PAT }}
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.MY_PAT }}
 
       - name: Set branch_date as today
         id: set_date
