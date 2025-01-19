@@ -62,7 +62,7 @@ jobs:
         - name: Clone rix and open PR
           run: |
             curl -X POST \
-            -H "Authorization: token ${{ secrets.MY_PAT }}" \
+            -H "Authorization: token ${{ secrets.UPDATE_AVAILABLE_CSV_RIX }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/ropensci/rix/dispatches \
             -d '{
