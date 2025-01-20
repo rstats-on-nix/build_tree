@@ -25,11 +25,11 @@ jobs:
         run: echo "branchDate=$(date '+%Y-%m-%d')" >> $GITHUB_STATE
 
       - name: Check date
-        run: echo ${{ STATE_branchDate }}
+        run: echo ${{ env.STATE_branchDate }}
 
       - name: Update default.nix
         run: |
-          sed -i 's/REPLACE_DATE/${{ STATE_branchDate }}/g' default.nix
+          sed -i 's/REPLACE_DATE/${{ env.STATE_branchDate }}/g' default.nix
 
       - name: Build on date ${{ github.event.client_payload.ref_name }}
         run: |
@@ -49,11 +49,11 @@ jobs:
           name: rstats-on-nix
 
       - name: Check date
-        run: echo ${{ STATE_branchDate }}
+        run: echo ${{ env.STATE_branchDate }}
 
       - name: Update default.nix
         run: |
-          sed -i '' 's/REPLACE_DATE/${{ STATE_branchDate }}/g' default.nix
+          sed -i '' 's/REPLACE_DATE/${{ env.STATE_branchDate }}/g' default.nix
 
       - name: Build on date ${{ github.event.client_payload.ref_name }}
         run: |
@@ -74,6 +74,6 @@ jobs:
             -d '{
               "event_type": "trigger-workflow",
               "client_payload": {
-                "branch_date": "${{ STATE_branchDate }}"
+                "branch_date": "${{ env.STATE_branchDate }}"
               }
             }'
