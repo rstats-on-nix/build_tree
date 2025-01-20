@@ -74,6 +74,6 @@ jobs:
             -d '{
               "event_type": "trigger-workflow",
               "client_payload": {
-                "branch_date": "${{ env.branch_date }}"
+                "branch_date": ${{ env.branch_date }}
               }
             }'
