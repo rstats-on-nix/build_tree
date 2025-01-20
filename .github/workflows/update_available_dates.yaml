@@ -22,8 +22,10 @@ jobs:
           
       - name: Set branch_date as today
         id: set_date
-        #run: echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
-        run: echo "branch_date=2025-01-18" >> $GITHUB_ENV
+        run: echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Check date
+        run: echo ${{ env.branch_date }}
 
       - name: Update default.nix
         run: |
@@ -48,8 +50,10 @@ jobs:
           
       - name: Set branch_date as today
         id: set_date
-        #run: echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
-        run: echo "branch_date=2025-01-18" >> $GITHUB_ENV
+        run: echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Check date
+        run: echo ${{ env.branch_date }}
 
       - name: Update default.nix
         run: |
