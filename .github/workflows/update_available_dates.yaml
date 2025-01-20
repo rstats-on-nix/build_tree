@@ -27,10 +27,6 @@ jobs:
       - name: Check date
         run: echo ${{ env.branch_date }}
 
-      - name: Output branch_date
-        id: output_date
-        run: echo "::set-output name=branch_date::$(date '+%Y-%m-%d')"
-
       - name: Update default.nix
         run: |
           sed -i 's/REPLACE_DATE/${{ env.branch_date }}/g' default.nix
@@ -75,6 +71,7 @@ jobs:
       steps:
         - name: Clone rix and open PR
           run: |
+            echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
             curl -X POST \
             -H "Authorization: token ${{ secrets.UPDATE_AVAILABLE_DATES }}" \
             -H "Accept: application/vnd.github.v3+json" \
@@ -82,6 +79,6 @@ jobs:
             -d '{
               "event_type": "trigger-workflow",
               "client_payload": {
-                "branch_date": "${{ needs.update-and-trigger-ubuntu.outputs.branch_date }}"
+                "branch_date": "${{ env.branch_date }}"
               }
             }'
