@@ -2,7 +2,7 @@ name: Trigger build for available dates in rix
 
 on:
   schedule:
-    - cron: '0 23 * * 1'
+    - cron: '0 12 * * 1'
   push:
     branches:
       - main
@@ -71,14 +71,10 @@ jobs:
       steps:
         - name: Clone rix and open PR
           run: |
-            echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
             curl -X POST \
             -H "Authorization: token ${{ secrets.UPDATE_AVAILABLE_DATES }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/ropensci/rix/dispatches \
             -d '{
-              "event_type": "trigger-workflow",
-              "client_payload": {
-                "branch_date": "'"${branch_date}"'"
-              }
+              "event_type": "trigger-workflow"
             }'
