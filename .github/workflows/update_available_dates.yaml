@@ -76,4 +76,4 @@ jobs:
               \"client_payload\": {
                 \"branch_date\": \"${{ env.branch_date }}\"
               }
-           }"
+            }"
