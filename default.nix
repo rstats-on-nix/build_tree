@@ -1,11 +1,11 @@
 let
  pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/refs/heads/REPLACE_DATE.tar.gz") {};
  system_packages = builtins.attrValues {
-  inherit (pkgs) R glibcLocales nix;
+  inherit (pkgs) R quarto glibcLocales nix;
 };
  r_packages = builtins.attrValues {
   inherit (pkgs.rPackages)
-    callr ps bit64 rstudioapi bit broom systemfonts clipr rematch2 Seurat rhdf5 languageserver
+    callr ps bit64 rstudioapi quarto bit broom systemfonts clipr rematch2 Seurat rhdf5 languageserver
     ggplot2 arrow duckdb collapse kit icosa sf terra stars devtools openssl
     haven rematch knitr munsell RColorBrewer readxl colorspace generics
     later dplyr cli fs evaluate crayon mime ragg cachem tinytex fontawesome
