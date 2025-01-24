@@ -3,9 +3,7 @@ name: Trigger build for available dates in rix
 on:
   schedule:
     - cron: '0 16 * * 1'
-  push:
-    branches:
-      - main
+
 
 jobs:
   update-and-trigger-ubuntu:
