@@ -1,6 +1,8 @@
 name: Trigger build for available dates in rix
 
 on:
+  push:
+    branches: [master, main]
   schedule:
     - cron: '0 16 * * 1'
 
