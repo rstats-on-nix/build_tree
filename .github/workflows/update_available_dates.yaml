@@ -17,6 +17,7 @@ jobs:
       - uses: cachix/cachix-action@v15
         with:
           name: rstats-on-nix
+          authToken: "${{ secrets.CACHIX_AUTH }}"
           
       - name: Set branch_date as today
         id: set_date
@@ -44,7 +45,8 @@ jobs:
       - uses: cachix/cachix-action@v15
         with:
           name: rstats-on-nix
-          
+          authToken: "${{ secrets.CACHIX_AUTH }}"
+
       - name: Set branch_date as today
         id: set_date
         run: echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
