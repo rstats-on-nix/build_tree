@@ -19,7 +19,7 @@ let
     viridisLite gtable sass labeling isoband rmarkdown digest jquerylib farver xlsx openxlsx
     ;
 };
- wrapped_pkgs = pkgs.rWrapper.override {
+ wrapped_pkgs = pkgs.rstudioWrapper.override {
   packages = [ r_packages ];
 };
   in
