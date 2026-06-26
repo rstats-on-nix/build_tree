@@ -5,6 +5,18 @@ name: "Build tree"
 on:
   repository_dispatch:
     types: [trigger-workflow]
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date to build (YYYY-MM-DD)"
+        required: true
+      platforms:
+        description: 'Platforms/OS list as a JSON array (e.g., ["ubuntu-latest"])'
+        required: true
+        default: '["ubuntu-latest"]'
+
+env:
+  BUILD_DATE: ${{ github.event.client_payload.ref_name || github.event.inputs.date }}
 
 jobs:
   build-tree:
@@ -14,7 +26,7 @@ jobs:
       contents: "read"
     strategy:
       matrix:
-        os: ${{ github.event.client_payload.platforms }}
+        os: ${{ github.event.client_payload.platforms || fromJson(github.event.inputs.platforms || '["ubuntu-latest"]') }}
     steps:
     - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
@@ -26,13 +38,13 @@ jobs:
         
     - name: Access Payload Data
       run: |
-          echo "Branch: ${{ github.event.client_payload.ref_name }}"
-          echo "Branch: ${{ github.event.client_payload.platforms }}"
+          echo "Date: ${{ env.BUILD_DATE }}"
+          echo "Platform: ${{ matrix.os }}"
 
     - name: Determine Nix file to use
       id: determine-file
       run: |
-         year_month=$(echo "${{ github.event.client_payload.ref_name }}" | cut -c1-7)
+         year_month=$(echo "${{ env.BUILD_DATE }}" | cut -c1-7)
          year=$(echo "$year_month" | cut -d'-' -f1)
          if [ "$year_month" = "2020-03" ]; then
              echo "nix_file=default_2019.nix" >> $GITHUB_ENV
@@ -46,13 +58,13 @@ jobs:
 
     - run:   |
          if [ "$RUNNER_OS" == "Linux" ]; then
-              sed -i 's/REPLACE_DATE/${{ github.event.client_payload.ref_name }}/g' ${{ env.nix_file }}
+              sed -i 's/REPLACE_DATE/${{ env.BUILD_DATE }}/g' ${{ env.nix_file }}
          else
-              sed -i '' 's/REPLACE_DATE/${{ github.event.client_payload.ref_name }}/g' ${{ env.nix_file }} 
+              sed -i '' 's/REPLACE_DATE/${{ env.BUILD_DATE }}/g' ${{ env.nix_file }} 
          fi
 
          
-    - name: Build on date ${{ github.event.client_payload.ref_name }}
+    - name: Build on date ${{ env.BUILD_DATE }}
       run:   |
          if [ "$RUNNER_OS" == "Linux" ]; then
               nix-build --max-jobs 1 --cores 2 --argstr system x86_64-linux ${{ env.nix_file }}

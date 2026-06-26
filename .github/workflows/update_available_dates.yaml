@@ -5,6 +5,12 @@ on:
     branches: [master, main]
   schedule:
     - cron: '0 14 * * 1'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date to build (YYYY-MM-DD) - leave empty for today's date"
+        required: false
+        default: ''
 
 jobs:
   update-and-trigger-ubuntu:
@@ -19,9 +25,16 @@ jobs:
           name: rstats-on-nix
           authToken: "${{ secrets.CACHIX_AUTH }}"
           
-      - name: Set branch_date as today
+      - name: Set branch_date
         id: set_date
-        run: echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+        env:
+          MANUAL_DATE: ${{ github.event.inputs.date }}
+        run: |
+          if [ -n "$MANUAL_DATE" ]; then
+            echo "branch_date=$MANUAL_DATE" >> $GITHUB_ENV
+          else
+            echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+          fi
 
       - name: Check date
         run: echo ${{ env.branch_date }}
@@ -30,7 +43,7 @@ jobs:
         run: |
           sed -i 's/REPLACE_DATE/${{ env.branch_date }}/g' default.nix
 
-      - name: Build on date ${{ github.event.client_payload.ref_name }}
+      - name: Build on date ${{ env.branch_date }}
         run: |
           nix-build --max-jobs 1 --cores 2 default.nix
 
@@ -47,9 +60,16 @@ jobs:
           name: rstats-on-nix
           authToken: "${{ secrets.CACHIX_AUTH }}"
 
-      - name: Set branch_date as today
+      - name: Set branch_date
         id: set_date
-        run: echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+        env:
+          MANUAL_DATE: ${{ github.event.inputs.date }}
+        run: |
+          if [ -n "$MANUAL_DATE" ]; then
+            echo "branch_date=$MANUAL_DATE" >> $GITHUB_ENV
+          else
+            echo "branch_date=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+          fi
 
       - name: Check date
         run: echo ${{ env.branch_date }}
@@ -58,7 +78,7 @@ jobs:
         run: |
           sed -i '' 's/REPLACE_DATE/${{ env.branch_date }}/g' default.nix
 
-      - name: Build on date ${{ github.event.client_payload.ref_name }}
+      - name: Build on date ${{ env.branch_date }}
         run: |
           nix-build --max-jobs 1 --cores 2 default.nix
 
